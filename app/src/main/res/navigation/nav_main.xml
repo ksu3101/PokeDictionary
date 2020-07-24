@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/pokemonSearchFragment">
+
+    <activity
+        android:id="@+id/mapsActivity"
+        android:name="com.swkang.pokedictionary.view.pokemap.PokeMapsActivity"
+        android:label="activity_maps"
+        tools:layout="@layout/activity_maps" >
+        <argument
+            android:name="pokeMapInfos"
+            app:argType="com.swkang.model.domain.pokesearch.datas.PokemonMapCoordinates" />
+    </activity>
+    <fragment
+        android:id="@+id/pokemonSearchFragment"
+        android:name="com.swkang.pokedictionary.view.pokesearch.PokemonSearchFragment"
+        android:label="PokemonSearchFragment" >
+        <action
+            android:id="@+id/action_pokemonSearchFragment_to_mapsActivity"
+            app:destination="@id/mapsActivity"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/pokemonSearchFragment" />
+    </fragment>
+</navigation>
