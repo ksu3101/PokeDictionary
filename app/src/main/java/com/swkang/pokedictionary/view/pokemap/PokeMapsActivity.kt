@@ -39,8 +39,10 @@ class PokeMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         val pokeInfos = coordinate.pokeMapInfos
-        val targetCoordinates = LatLng(pokeInfos.latitude, pokeInfos.longitude)
-        mMap.addMarker(MarkerOptions().position(targetCoordinates).title(pokeInfos.name))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(targetCoordinates))
+        for (info in pokeInfos) {
+            val targetCoordinates = LatLng(info.latitude, info.longitude)
+            mMap.addMarker(MarkerOptions().position(targetCoordinates).title(info.name))
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(targetCoordinates))
+        }
     }
 }

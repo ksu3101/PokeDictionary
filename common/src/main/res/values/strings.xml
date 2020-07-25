@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PokeDictionary</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="c_yes">예</string>
+    <string name="c_no">아니오</string>
+    <string name="c_confirm">확인</string>
+    <string name="c_retry_desc">오류로 인해 정상적으로 정보를 가져오지 못했습니다. 재시도 하시겠습니까?</string>
+
+    <string name="pokemon_detail_show_map">지도보기</string>
+    <string name="pokemon_input_hint">포켓몬 이름 입력</string>
+
+</resources>

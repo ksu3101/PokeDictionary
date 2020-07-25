@@ -14,7 +14,7 @@ class PokemonSearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pokesearch_activity)
-        activityScope.declare(this)
+        activityScope.declare(this, override = true)
     }
 
     override fun onDestroy() {

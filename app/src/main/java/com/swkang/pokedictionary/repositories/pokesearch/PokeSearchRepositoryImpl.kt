@@ -28,7 +28,9 @@ class PokeSearchRepositoryImpl(
                 }
         } else {
             if (query.isNullOrEmpty()) {
-                Single.error(IllegalArgumentException("query not found error."))
+                Single.just(pokemonNames)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
             } else {
                 val isOnlyEngQuery = query.isOnlyEnglish()
                 Observable.fromIterable(pokemonNames)

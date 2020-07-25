@@ -4,14 +4,18 @@ import com.swkang.common.DEFAULT_TIMEOUT_SEC
 import com.swkang.common.QUALIFIER_POKEAPI
 import com.swkang.common.QUALIFIER_POKESEARCH
 import com.swkang.model.base.helpers.MessageHelper
-import com.swkang.model.domain.pokesearch.PokeSearchNavigationHelper
+import com.swkang.model.base.helpers.ResourceHelper
+import com.swkang.model.domain.pokesearch.PokemonNavigationHelper
 import com.swkang.model.domain.pokesearch.PokeSearchViewModel
 import com.swkang.model.domain.pokesearch.repo.PokeSearchRepository
+import com.swkang.model.domain.pokesearch.repo.PokemonRepository
 import com.swkang.pokedictionary.base.helpers.MessageHelperImpl
+import com.swkang.pokedictionary.base.helpers.ResourceHelperImpl
 import com.swkang.pokedictionary.repositories.pokesearch.PokeApi
 import com.swkang.pokedictionary.repositories.pokesearch.PokeSearchApi
 import com.swkang.pokedictionary.repositories.pokesearch.PokeSearchRepositoryImpl
-import com.swkang.pokedictionary.view.pokesearch.PokeSearchNavigationHelperImpl
+import com.swkang.pokedictionary.repositories.pokesearch.PokemonRepositoryImpl
+import com.swkang.pokedictionary.view.pokesearch.PokemonNavigationHelperImpl
 import com.swkang.pokedictionary.view.pokesearch.PokemonSearchActivity
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,6 +30,7 @@ import java.util.concurrent.TimeUnit
 
 val appModule = module {
     single<MessageHelper> { MessageHelperImpl(androidContext()) }
+    single<ResourceHelper> { ResourceHelperImpl(androidContext()) }
 }
 
 val repositories = module {
@@ -65,14 +70,16 @@ val repositories = module {
         get<Retrofit>(named(QUALIFIER_POKEAPI))
             .create(PokeApi::class.java)
     }
-
+    single<PokemonRepository> {
+        PokemonRepositoryImpl(get())
+    }
 }
 
 val activityModules = module {
     scope(named<PokemonSearchActivity>()) {
-        scoped<PokeSearchNavigationHelper> {
-            PokeSearchNavigationHelperImpl(get<PokemonSearchActivity>())
+        scoped<PokemonNavigationHelper> {
+            PokemonNavigationHelperImpl(get<PokemonSearchActivity>())
         }
-        viewModel { PokeSearchViewModel(get(), get(), get()) }
+        viewModel { PokeSearchViewModel(get(), get(), get(), get()) }
     }
 }

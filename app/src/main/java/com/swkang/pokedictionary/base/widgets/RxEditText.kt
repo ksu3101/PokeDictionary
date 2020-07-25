@@ -24,16 +24,13 @@ class RxEditText : AppCompatEditText {
 
     init {
         textWatcherRef = addTextChangedListener {
-            if (!it.isNullOrEmpty()) {
-                textChanged.onNext(it.toString())
-            }
+            textChanged.onNext(it?.toString() ?: "")
         }
     }
 
     fun getTextChangedListener(): Observable<String> {
         return textChanged.hide().observeOn(AndroidSchedulers.mainThread())
             .distinctUntilChanged()
-            .filter { it.isNotEmpty() }
             .debounce(500, TimeUnit.MILLISECONDS)
     }
 

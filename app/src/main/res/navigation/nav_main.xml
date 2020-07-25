@@ -12,7 +12,7 @@
         tools:layout="@layout/activity_maps" >
         <argument
             android:name="pokeMapInfos"
-            app:argType="com.swkang.model.domain.pokesearch.datas.PokemonMapCoordinates" />
+            app:argType="com.swkang.model.domain.pokesearch.datas.PokemonMapCoordinates[]" />
     </activity>
     <fragment
         android:id="@+id/pokemonSearchFragment"
@@ -23,5 +23,17 @@
             app:destination="@id/mapsActivity"
             app:launchSingleTop="true"
             app:popUpTo="@id/pokemonSearchFragment" />
+        <action
+            android:id="@+id/action_pokemonSearchFragment_to_pokeDetailDialogFragment"
+            app:destination="@id/pokeDetailDialogFragment"
+            app:launchSingleTop="true" />
     </fragment>
+    <dialog
+        android:id="@+id/pokeDetailDialogFragment"
+        android:name="com.swkang.pokedictionary.view.pokedetail.PokeDetailDialogFragment"
+        android:label="PokeDetailDialogFragment" >
+        <argument
+            android:name="pokeMapInfos"
+            app:argType="com.swkang.model.domain.pokesearch.datas.PokemonMapCoordinates[]" />
+    </dialog>
 </navigation>

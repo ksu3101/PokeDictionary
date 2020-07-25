@@ -1,7 +1,4 @@
 <resources>
     <string name="app_name">PokeDictionary</string>
     <string name="title_activity_maps">Map</string>
-
-    <string name="pokemon_input_hint">포켓몬 이름 입력</string>
-
 </resources>
