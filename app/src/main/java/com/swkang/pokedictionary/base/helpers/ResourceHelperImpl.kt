@@ -5,10 +5,14 @@ import com.swkang.model.base.helpers.ResourceHelper
 
 class ResourceHelperImpl(
     private val context: Context
-): ResourceHelper {
+) : ResourceHelper {
 
     override fun getString(stringResId: Int): String {
         return context.getString(stringResId)
+    }
+
+    override fun getString(stringResId: Int, vararg params: Any): String {
+        return context.getString(stringResId, *params)
     }
 
 }

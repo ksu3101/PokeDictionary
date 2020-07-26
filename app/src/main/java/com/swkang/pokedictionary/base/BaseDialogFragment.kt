@@ -21,11 +21,6 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     abstract fun createViewModel(): BaseViewModel
 
-    override fun onStart() {
-        super.onStart()
-
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.BaseDialogStyle)
@@ -47,13 +42,6 @@ abstract class BaseDialogFragment : DialogFragment() {
         binding.setVariable(BR.vm, viewModel)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
-    }
-
-    override fun onDestroyView() {
-        if (::viewModel.isInitialized) {
-            viewModel.dispose()
-        }
-        super.onDestroyView()
     }
 
 }

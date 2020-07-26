@@ -9,6 +9,8 @@
     <string name="c_retry_desc">오류로 인해 정상적으로 정보를 가져오지 못했습니다. 재시도 하시겠습니까?</string>
 
     <string name="pokemon_detail_show_map">지도보기</string>
+    <string name="pokemon_detail_height">키 : %1$d</string>
+    <string name="pokemon_detail_weight">몸무게 : %1$d</string>
     <string name="pokemon_input_hint">포켓몬 이름 입력</string>
 
 </resources>

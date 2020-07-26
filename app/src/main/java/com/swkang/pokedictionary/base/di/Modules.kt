@@ -5,6 +5,7 @@ import com.swkang.common.QUALIFIER_POKEAPI
 import com.swkang.common.QUALIFIER_POKESEARCH
 import com.swkang.model.base.helpers.MessageHelper
 import com.swkang.model.base.helpers.ResourceHelper
+import com.swkang.model.domain.pokedetail.PokeDetailViewModel
 import com.swkang.model.domain.pokesearch.PokemonNavigationHelper
 import com.swkang.model.domain.pokesearch.PokeSearchViewModel
 import com.swkang.model.domain.pokesearch.repo.PokeSearchRepository
@@ -81,5 +82,6 @@ val activityModules = module {
             PokemonNavigationHelperImpl(get<PokemonSearchActivity>())
         }
         viewModel { PokeSearchViewModel(get(), get(), get(), get()) }
+        viewModel { PokeDetailViewModel(get(), get(), get()) }
     }
 }

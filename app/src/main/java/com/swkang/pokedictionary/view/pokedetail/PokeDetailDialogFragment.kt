@@ -8,32 +8,17 @@ import androidx.navigation.fragment.navArgs
 import com.swkang.common.POKEMON_SEARCH_ACTIVITY_SCOPEID
 import com.swkang.model.base.BaseViewModel
 import com.swkang.model.domain.pokedetail.PokeDetailViewModel
-import com.swkang.model.domain.pokesearch.datas.PokemonMapCoordinates
 import com.swkang.pokedictionary.R
 import com.swkang.pokedictionary.base.BaseDialogFragment
-import com.swkang.pokedictionary.view.pokemap.PokeMapsActivityArgs
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.scope.getViewModel
-import java.lang.IllegalArgumentException
 
 class PokeDetailDialogFragment : BaseDialogFragment() {
-    companion object {
-        val TAG = "PokeDetailDialogFragment"
-        val BUNDLEKEY_COORDINATES = "PokeDetailDialogFragment.Bundle.PokemonMapCoordinates"
-
-        fun newInstance(coordinates: Array<PokemonMapCoordinates>): PokeDetailDialogFragment {
-            val fragment = PokeDetailDialogFragment()
-            val bundle = Bundle()
-            bundle.putParcelableArray("BUNDLEKEY_COORDINATES", coordinates)
-            return fragment
-        }
-    }
-
     private val activityScope = getKoin().getScope(POKEMON_SEARCH_ACTIVITY_SCOPEID)
     private val vm: PokeDetailViewModel by lazy {
         activityScope.getViewModel<PokeDetailViewModel>(requireParentFragment())
     }
-    private val coordinates by navArgs<PokeMapsActivityArgs>()
+    private val pokemonInfos by navArgs<PokeDetailDialogFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +26,7 @@ class PokeDetailDialogFragment : BaseDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        vm.setPokemonCoordinates(coordinates.pokeMapInfos)
+        vm.setPokemonInfos(pokemonInfos.pokemonId, pokemonInfos.pokeMapInfos)
         return view
     }
 

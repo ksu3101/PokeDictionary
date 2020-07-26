@@ -5,40 +5,32 @@ import androidx.navigation.findNavController
 import com.swkang.model.domain.pokesearch.PokemonNavigationHelper
 import com.swkang.model.domain.pokesearch.datas.PokemonMapCoordinates
 import com.swkang.pokedictionary.R
-import com.swkang.pokedictionary.base.exts.dismissDialogFragment
-import com.swkang.pokedictionary.base.exts.showDialogFragment
-import com.swkang.pokedictionary.view.pokedetail.PokeDetailDialogFragment
-import com.swkang.pokedictionary.view.pokedetail.PokeDetailDialogFragmentArgs
+import com.swkang.pokedictionary.view.pokedetail.PokeDetailDialogFragmentDirections
 
 class PokemonNavigationHelperImpl(
     private val activity: AppCompatActivity
 ) : PokemonNavigationHelper {
 
-    override fun openMapOfPokemonLocations(coordinates: List<PokemonMapCoordinates>) {
-        val direction = PokemonSearchFragmentDirections
-            .actionPokemonSearchFragmentToMapsActivity(coordinates.toTypedArray())
+    override fun openMapOfPokemonLocations(coordinates: Array<PokemonMapCoordinates>) {
+        val direction = PokeDetailDialogFragmentDirections
+            .actionPokeDetailDialogFragmentToMapsActivity(coordinates)
         activity.findNavController(R.id.fragmentContainer).navigate(direction)
     }
 
     override fun showPokemonDetailPopup(
         pokemonId: Long,
-        coordinates: List<PokemonMapCoordinates>,
-        onPokemonMapsClicked: () -> Unit
+        coordinates: List<PokemonMapCoordinates>
     ) {
         val direction = PokemonSearchFragmentDirections
-            .actionPokemonSearchFragmentToPokeDetailDialogFragment(coordinates.toTypedArray())
+            .actionPokemonSearchFragmentToPokeDetailDialogFragment(
+                coordinates.toTypedArray(),
+                pokemonId
+            )
         activity.findNavController(R.id.fragmentContainer).navigate(direction)
-
-//        val fragment = PokeDetailDialogFragment.newInstance(coordinates.toTypedArray())
-//        fragment.isCancelable = true
-//        activity.showDialogFragment(
-//            fragment,
-//            PokeDetailDialogFragment.TAG
-//        )
     }
 
     override fun dismissPokemonDetailPopup() {
-//        activity.dismissDialogFragment(PokeDetailDialogFragment.TAG)
+        activity.findNavController(R.id.fragmentContainer).navigateUp()
     }
 
 }

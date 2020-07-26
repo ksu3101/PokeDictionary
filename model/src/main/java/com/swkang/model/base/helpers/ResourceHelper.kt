@@ -6,4 +6,6 @@ interface ResourceHelper {
 
     fun getString(@StringRes stringResId: Int): String
 
+    fun getString(@StringRes stringResId: Int, vararg params: Any): String
+
 }

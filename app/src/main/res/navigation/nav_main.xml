@@ -19,14 +19,8 @@
         android:name="com.swkang.pokedictionary.view.pokesearch.PokemonSearchFragment"
         android:label="PokemonSearchFragment" >
         <action
-            android:id="@+id/action_pokemonSearchFragment_to_mapsActivity"
-            app:destination="@id/mapsActivity"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/pokemonSearchFragment" />
-        <action
             android:id="@+id/action_pokemonSearchFragment_to_pokeDetailDialogFragment"
-            app:destination="@id/pokeDetailDialogFragment"
-            app:launchSingleTop="true" />
+            app:destination="@id/pokeDetailDialogFragment" />
     </fragment>
     <dialog
         android:id="@+id/pokeDetailDialogFragment"
@@ -35,5 +29,11 @@
         <argument
             android:name="pokeMapInfos"
             app:argType="com.swkang.model.domain.pokesearch.datas.PokemonMapCoordinates[]" />
+        <argument
+            android:name="pokemonId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_pokeDetailDialogFragment_to_mapsActivity"
+            app:destination="@id/mapsActivity" />
     </dialog>
 </navigation>

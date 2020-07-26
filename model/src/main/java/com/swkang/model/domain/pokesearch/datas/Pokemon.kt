@@ -9,7 +9,15 @@ data class Pokemon(
     val height: Int,
     val weight: Int,
     val sprites: PokemonSprites
-)
+) {
+    fun getCorrectPokemonSpriteUrl(): String? {
+        for (sprite in sprites.toList()) {
+            if (!sprite.isNullOrEmpty()) return sprite
+            else continue
+        }
+        return null
+    }
+}
 
 data class PokemonSprites(
     @field:Json(name = "front_default") val frontDefault: String?,
@@ -20,4 +28,17 @@ data class PokemonSprites(
     @field:Json(name = "back_shiny") val backShiny: String?,
     @field:Json(name = "back_female") val backFemale: String?,
     @field:Json(name = "back_shiny_female") val backShinyFemale: String?
-)
+) {
+    fun toList(): List<String?> {
+        return listOf(
+            frontDefault,
+            frontShiny,
+            frontFemale,
+            frontShinyFemale,
+            backDefault,
+            backShiny,
+            backFemale,
+            backShinyFemale
+        )
+    }
+}

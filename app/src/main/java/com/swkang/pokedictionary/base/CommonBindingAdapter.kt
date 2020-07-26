@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.swkang.model.base.RxDisposer
 import com.swkang.pokedictionary.base.widgets.RxEditText
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 
 @BindingAdapter("android:visibility")
 fun setVisibility(view: View, visibility: Boolean) {
@@ -25,6 +24,11 @@ fun loadImageUrl(iv: ImageView, url: String?) {
             .load(url)
             .into(iv)
     }
+}
+
+@BindingAdapter("android:onClick")
+fun onViewClicked(v: View, onClickListener: () -> Unit) {
+    v.setOnClickListener { onClickListener() }
 }
 
 @BindingAdapter(value = ["disposer", "textChanged"])

@@ -8,6 +8,8 @@ import com.swkang.model.base.BaseViewModel
 import com.swkang.model.base.exts.setFalse
 import com.swkang.model.base.helpers.MessageHelper
 import com.swkang.model.base.helpers.ResourceHelper
+import com.swkang.model.domain.pokesearch.datas.PokemonCoordinate
+import com.swkang.model.domain.pokesearch.datas.PokemonMapCoordinates
 import com.swkang.model.domain.pokesearch.datas.PokemonName
 import com.swkang.model.domain.pokesearch.repo.PokeSearchRepository
 
@@ -31,12 +33,21 @@ class PokeSearchViewModel(
         get() = _pokemons
 
     val onQueryStringChanged: (String) -> Unit = {
-        Log.d("PokeSearchViewModel", ">>> onQueryStringChanged : $it")
         requestPokemonNames(it)
     }
 
-    val onPokemonClicked: (PokemonName) -> Unit = {
-        Log.d("PokeSearchViewModel", ">>> onPokemonClicked : ${it.id}, ${it.korName}")
+    val onPokemonClicked: (PokemonName) -> Unit = { selectedPokemon ->
+        requestPokemonLocations(selectedPokemon.id) { pokemonLocations ->
+            navigationHelper.showPokemonDetailPopup(
+                selectedPokemon.id,
+                pokemonLocations.map {
+                    PokemonMapCoordinates(
+                        selectedPokemon.korName,
+                        it.lat,
+                        it.lng
+                    )
+                })
+        }
     }
 
     init {
@@ -71,14 +82,19 @@ class PokeSearchViewModel(
         )
     }
 
-    private fun requestPokemonLocations(id: Long?) {
+    private fun requestPokemonLocations(
+        id: Long?,
+        resultHandler: ((List<PokemonCoordinate>) -> Unit)? = null
+    ) {
         addDisposer(
             repo.requestPokemonLocations(id)
                 .doOnSubscribe { _isLoading.postValue(true) }
                 .doFinally { _isLoading.postValue(false) }
                 .subscribe(
-                    {
-                        // nothing to do
+                    { pokemonLocations ->
+                        resultHandler?.let {
+                            it(pokemonLocations)
+                        }
                     },
                     {
                         Log.e("PokeSearchViewModel", it.message)
