@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.swkang.model.R
 import com.swkang.model.base.BaseViewModel
-import com.swkang.model.base.exts.setFalse
 import com.swkang.model.base.helpers.MessageHelper
 import com.swkang.model.base.helpers.ResourceHelper
 import com.swkang.model.domain.pokesearch.datas.PokemonCoordinate
@@ -58,12 +57,14 @@ class PokeSearchViewModel(
     private fun requestPokemonNames(query: String?) {
         addDisposer(
             repo.requestPokemonNames(query)
-                .doOnSubscribe { _isLoading.postValue(true) }
+                .doOnSubscribe {
+                    if (query != null) _query.postValue(query)
+                    _isLoading.postValue(true)
+                }
                 .doFinally { _isLoading.postValue(false) }
                 .subscribe(
                     {
                         _pokemons.value = it
-                        _isLoading.setFalse()
                     },
                     {
                         Log.e("PokeSearchViewModel", it.message)

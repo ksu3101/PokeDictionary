@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.swkang.common.exts.isOnlyEnglish
 import com.swkang.model.domain.pokesearch.datas.PokemonName
 import com.swkang.pokedictionary.R
 import kotlinx.android.synthetic.main.pokesearch_item.view.*
@@ -47,10 +46,7 @@ class PokemonSearchItemAdapter(
     ) : RecyclerView.ViewHolder(view) {
 
         fun bind(pokemonName: PokemonName) {
-            val isQueryEngString = query.isOnlyEnglish()
-            itemView.pokemonSearchName.text =
-                if (isQueryEngString) pokemonName.engName
-                else pokemonName.korName
+            itemView.pokemonSearchName.text = pokemonName.korName
             itemView.setOnClickListener { onItemClicked(pokemonName) }
         }
 

@@ -12,6 +12,9 @@ import com.swkang.model.domain.pokesearch.datas.PokemonMapCoordinates
 import com.swkang.model.domain.pokesearch.repo.PokemonRepository
 import io.reactivex.rxjava3.disposables.Disposable
 
+/**
+ * 포켓몬 상세 보기 팝업의 ViewModel
+ */
 class PokeDetailViewModel(
     private val repo: PokemonRepository,
     private val resourceHelper: ResourceHelper,
@@ -40,6 +43,10 @@ class PokeDetailViewModel(
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
+    /**
+     * pokemon_locations를 기준으로 id에 해당하는 위치가 1개 이상 존재시 에 대한 flag
+     * -> true일 때 "지도 보기" 버튼이 보여진다.
+     */
     private val _hasPokemonLocations = MutableLiveData(false)
     val hasPokemonLocations: LiveData<Boolean>
         get() = _hasPokemonLocations
@@ -55,7 +62,7 @@ class PokeDetailViewModel(
     }
 
     /**
-     * 포켓몬 위치가 있을 경우 -> "지도 보기" 버튼 보여짐 -> 터치 이벤트 핸들러
+     * "지도 보기" 터치 이벤트 핸들러
      */
     val onClickedShowPokemonLocationsBtn = {
         navigationHelper.openMapOfPokemonLocations(pokemonLocations)
@@ -74,7 +81,7 @@ class PokeDetailViewModel(
             .subscribe({
                 updateViewsByPokemonInfos(it)
             }, {
-                Log.e("PokeDetailViewModel", ">>> ${it.message}")
+                Log.e("PokeDetailViewModel", "${it.message}")
             })
         addDisposer(retrieveJobDisposer)
     }

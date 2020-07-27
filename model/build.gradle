@@ -60,6 +60,7 @@ dependencies {
 
     testImplementation "junit:junit:$jUnit"
     testImplementation "org.mockito:mockito-core:$mockito"
+    testImplementation "android.arch.core:core-testing:$architectureLifecycle"
 
     implementation project(':common')
 }

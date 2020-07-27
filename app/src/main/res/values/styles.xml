@@ -9,7 +9,6 @@
 
     <style name="BaseDialogStyle"
         parent="android:Theme.Holo.Dialog">
-        <!-- parent="android:Theme.DeviceDefault.Dialog.NoActionBar" -->
         <item name="android:windowNoTitle">true</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:background">@color/transparent</item>
