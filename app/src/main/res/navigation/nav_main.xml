@@ -34,6 +34,7 @@
             app:argType="long" />
         <action
             android:id="@+id/action_pokeDetailDialogFragment_to_mapsActivity"
-            app:destination="@id/mapsActivity" />
+            app:destination="@id/mapsActivity"
+            app:launchSingleTop="true" />
     </dialog>
 </navigation>

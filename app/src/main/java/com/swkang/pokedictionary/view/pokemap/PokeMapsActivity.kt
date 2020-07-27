@@ -21,7 +21,7 @@ class PokeMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
         val mapFragment = supportFragmentManager
-                .findFragmentById(R.id.map) as SupportMapFragment
+            .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 
@@ -35,7 +35,10 @@ class PokeMapsActivity : AppCompatActivity(), OnMapReadyCallback {
             gMap.addMarker(MarkerOptions().position(targetCoordinates).title(info.name))
             markerBounds.include(targetCoordinates)
         }
-        val padding = 50 // px
-        gMap.moveCamera(CameraUpdateFactory.newLatLngBounds(markerBounds.build(), padding))
+
+        val bounds = markerBounds.build()
+        gMap.setOnMapLoadedCallback {
+            gMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50))
+        }
     }
 }
