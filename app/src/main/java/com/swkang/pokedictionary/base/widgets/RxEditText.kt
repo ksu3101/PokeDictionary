@@ -10,17 +10,12 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
-class RxEditText : AppCompatEditText {
+class RxEditText constructor(
+    context: Context?,
+    attrs: AttributeSet?
+) : AppCompatEditText(context, attrs) {
     private val textWatcherRef: TextWatcher
     private val textChanged = PublishSubject.create<String>()
-
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    )
 
     init {
         textWatcherRef = addTextChangedListener {
